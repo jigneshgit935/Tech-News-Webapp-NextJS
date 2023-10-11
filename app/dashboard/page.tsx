@@ -1,11 +1,10 @@
-import Categorieslist from '@/components/CategoriesList';
 import Posts from '@/components/Posts';
 import { postsData } from '@/data';
+import Link from 'next/link';
 
-export default function Home() {
+export default function Dashboard() {
   return (
-    <>
-      <Categorieslist />
+    <div>
       {postsData && postsData.length > 0 ? (
         postsData.map((post) => (
           <Posts
@@ -22,8 +21,13 @@ export default function Home() {
           />
         ))
       ) : (
-        <div className="py-6">No Post to display</div>
+        <div className="py-6">
+          No Posts Created Yet.{' '}
+          <Link className="underline" href="/create-post">
+            Create New
+          </Link>
+        </div>
       )}
-    </>
+    </div>
   );
 }
