@@ -1,8 +1,16 @@
 import Posts from '@/components/Posts';
 import { postsData } from '@/data';
+import { getServerSession } from 'next-auth';
 import Link from 'next/link';
+import { authOptions } from '../api/auth/[...nextauth]/route';
+import { redirect } from 'next/navigation';
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect('/sign-in');
+  }
   return (
     <div>
       {postsData && postsData.length > 0 ? (
